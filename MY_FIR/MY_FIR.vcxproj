@@ -148,6 +148,7 @@
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Chess.cpp" />
     <ClCompile Include="ChessGame.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Man.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
