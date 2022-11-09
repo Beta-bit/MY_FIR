@@ -5,6 +5,8 @@ ChessGame::ChessGame(Man* man, AI* ai, Chess* chess)
 	this->man = man;
 	this->ai = ai;
 	this->chess = chess;
+
+	man->init(chess);
 }
 
 //对局（开始五子棋游戏）
