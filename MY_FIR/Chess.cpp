@@ -1,3 +1,4 @@
+#include <cmath>
 #include "Chess.h"
 #include <mmsystem.h>
 #pragma comment(lib, "winmm.lib")
@@ -45,7 +46,68 @@ void Chess::init()
 
 bool Chess::clickBoard(int x, int y, ChessPos* pos)
 {
-    return false;
+    int col = (x - margin_x) / chessSize;
+    int row = (y - margin_y) / chessSize;
+    int leftTopPosX = margin_x + chessSize * col;
+    int leftTopPosY = margin_y + chessSize * row;
+    int offset = chessSize * 0.4;  //ф╚рфа©
+
+    int len;
+    bool ret = true;
+
+    do {
+        //еп╤ойг╥ЯтзвСио╫г
+        len = sqrt(pow((x - leftTopPosX), 2) + pow((y - leftTopPosY), 2));
+        if (len < offset) {
+            pos->row = row;
+            pos->col = col;
+            if (chessMap[pos->row][pos->col] == 0) {
+                ret = true;
+            }
+            break;
+        }
+
+        //срио╫геп╤о
+        int x2 = leftTopPosX + chessSize;
+        int y2 = leftTopPosY;
+        len = sqrt(pow((x - x2), 2) + pow((y - y2), 2));
+        if (len < offset) {
+            pos->row = row;
+            pos->col = col + 1;
+            if (chessMap[pos->row][pos->col] == 0) {
+                ret = true;
+            }
+            break;
+        }
+
+        //вСоб╫геп╤о
+        x2 = leftTopPosX;
+        y2 = leftTopPosY + chessSize;
+        len = sqrt(pow((x - x2), 2) + pow((y - y2), 2));
+        if (len < offset) {
+            pos->row = row + 1;
+            pos->col = col;
+            if (chessMap[pos->row][pos->col] == 0) {
+                ret = true;
+            }
+            break;
+        }
+
+        //сроб╫геп╤о
+        x2 = leftTopPosX + chessSize;
+        y2 = leftTopPosY + chessSize;
+        len = sqrt(pow((x - x2), 2) + pow((y - y2), 2));
+        if (len < offset) {
+            pos->row = row + 1;
+            pos->col = col + 1;
+            if (chessMap[pos->row][pos->col] == 0) {
+                ret = true;
+            }
+            break;
+        }
+    } while (0);
+
+    return ret;
 }
 
 void Chess::chessDown(ChessPos* pos, chess_kind_t kind)
