@@ -1,4 +1,6 @@
 #pragma once
+#include <graphics.h>
+#include <vector>
 
 //表示落子位置
 struct ChessPos {
@@ -14,6 +16,7 @@ typedef enum {
 class Chess
 {
 public:
+	Chess(int gradeSize, int margin_x, int margin_y, float chessSize);
 	void init();   //初始化
 
 	//判断指定坐标（x,y)位置，是否有效点击
@@ -31,5 +34,21 @@ public:
 	int getChessDate(int row, int col);
 	
 	bool checkOver(); //检查棋局是否结束
+
+private:
+	IMAGE chessBlackImg;  //黑子
+	IMAGE chessWhiteImg;  //白子
+
+	int gradeSize;   //棋盘的大小
+	int margin_x;    //棋盘的左边界大小
+	int margin_y;    //棋盘的上边界大小
+	float chessSize; //棋子的大小（棋盘一格的大小）
+
+	//存储当前棋局的棋子分布数据0：空白 1：黑子 -1：白字
+	//从零开始行列表示
+	std::vector < std::vector<int> > chessMap;
+
+	//表示下棋方
+	bool playerFlag;  //true:表示黑子走
 };
 
